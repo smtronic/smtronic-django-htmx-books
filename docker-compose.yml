@@ -1,0 +1,42 @@
+# Set project name
+name: htmx-books-test
+
+services:
+  web:
+    # Specify the ./app directory containing the Dockerfile for building the image
+    build: ./app
+    # Run the built-in Django server
+    command: python manage.py runserver 0.0.0.0:8000
+    # Map port 8000 of the container to port 8000 of localhost (127.0.0.1:8000)
+    ports:
+      - 127.0.0.1:8000:8000
+    # File containing environment variables for the container
+    env_file:
+      - .env
+    # Wait for the db and memcached containers to start
+    depends_on:
+      - db
+      - memcached
+
+  db:
+    # Use the PostgreSQL version 15 image
+    image: postgres:14
+    # Mount the postgres-data volume to the /var/lib/postgresql/data directory of the db container
+    volumes:
+    - postgres-data:/var/lib/postgresql/data
+    # File containing environment variables for the container
+    env_file:
+      - .env
+    # Use environment variable values from the .env file
+    environment:
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=${SQL_DATABASE}
+  memcached:
+    # Use the Memcached version 1.6.21 image
+    image: memcached:1.6.21
+
+volumes:
+# Declare the postgres-data volume for storing PostgreSQL data
+# Without a data volume, restarting the database container will result in data loss. Therefore, we define an external Docker volume postgres_data for storing database data.
+  postgres-data:
