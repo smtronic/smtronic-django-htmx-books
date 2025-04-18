@@ -1,0 +1,50 @@
+{% load i18n %}
+<tr class="{% if book.read %}grey-text{% endif %}">
+    <!-- Book number cell -->
+    <td class="align-middle text-center ps-2">
+        {{ book.id }}
+    </td>
+
+    <!-- Book title cell -->
+    <td class="align-middle ps-2">
+        {{ form.title }}
+    </td>
+
+    <!-- Book author cell -->
+    <td class="align-middle ps-2">
+        {{ form.author }}
+    </td>
+
+    <!-- Book price cell -->
+    <td class="align-middle text-center">
+        {{ form.price }}
+    </td>
+
+    <!-- Status cell -->
+    <td class="align-middle text-center">
+        <!-- "Read/Unread" button -->
+        <button class="disbtn table-button status-button btn btn-sm {% if book.read %}btn-secondary{% else %}btn-primary{% endif %}" disabled>
+            {% if book.read %}{% trans "Read" %}{% else %}{% trans "Unread" %}{% endif %}
+        </button>
+    </td>
+
+    <!-- Action buttons cell -->
+    <td class="align-middle text-center">
+        <!-- "Save" button -->
+        <button type="submit"
+                class="table-button any-button btn btn-success btn-sm me-2"
+                hx-post="{% url 'update_book_details' book.id %}"
+                hx-target="closest tr"
+                hx-swap="outerHTML"
+                hx-include="closest tr">
+            {% trans "Save" %}
+        </button>
+        <!-- "Cancel" button -->
+        <button class="table-button any-button btn btn-warning btn-sm"
+                hx-get="{% url 'book_detail' book.id %}"
+                hx-target="closest tr"
+                hx-swap="outerHTML">
+            {% trans "Cancel" %}
+        </button>
+    </td>
+</tr>

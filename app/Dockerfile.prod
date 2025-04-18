@@ -1,0 +1,56 @@
+###########
+# BUILDER #
+###########
+
+FROM python:3.13.1-alpine as builder
+
+WORKDIR /usr/src/app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+RUN pip install --upgrade pip
+
+# Install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+
+
+#########
+# FINAL #
+#########
+
+FROM python:3.13.1-alpine
+
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+
+# Create home directory for the user (/home/app) and project directory (/home/app/web)
+# Create app group and a separate app user
+RUN mkdir -p $APP_HOME \
+    && addgroup -S app \
+    && adduser -S app -G app \
+    && apk update \
+    && apk add libpq
+
+# Copy from builder and install dependencies
+COPY --from=builder /usr/src/app/wheels /wheels
+RUN pip install --no-cache /wheels/*
+
+# Set working directory
+WORKDIR $APP_HOME
+
+# Copy Django project to the working directory
+COPY . .
+
+# Change ownership of all project directories and files to the app user
+RUN chown -R app:app .
+
+# Change working user to app
+USER app
+
+RUN chmod +x entrypoint.prod.sh
+ENTRYPOINT ["./entrypoint.prod.sh"]

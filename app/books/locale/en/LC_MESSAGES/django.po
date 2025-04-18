@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-03 17:34+0300\n"
+"PO-Revision-Date: 2025-02-03 14:27+0000\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: books/forms.py:9 books/models.py:6
+msgid "Title"
+msgstr ""
+
+#: books/forms.py:13 books/models.py:7
+msgid "Author"
+msgstr ""
+
+#: books/forms.py:17 books/models.py:8
+msgid "Price"
+msgstr ""
+
+#: books/models.py:9
+msgid "Read"
+msgstr ""
+
+#: books/urls.py:15
+msgid "create_book/"
+msgstr ""
+
+#: books/urls.py:17
+msgid "update_book_details/<int:pk>/"
+msgstr ""
+
+#: books/urls.py:21
+msgid "book_detail/<int:pk>/"
+msgstr ""
+
+#: books/urls.py:22
+msgid "delete_book/<int:pk>/"
+msgstr ""
+
+#: books/urls.py:24
+msgid "update_book_status/<int:pk>/"
+msgstr ""
+
+#: books/urls.py:27
+msgid "book_list_sort/<filter>/<direction>/"
+msgstr ""
+
+#: books/views.py:64
+msgid "id"
+msgstr ""
+
+#: books/views.py:65
+msgid "title"
+msgstr ""
+
+#: books/views.py:66
+msgid "author"
+msgstr ""
+
+#: books/views.py:67
+msgid "price"
+msgstr ""
+
+#: books/views.py:68
+msgid "read"
+msgstr ""
+
+#: books/views.py:72
+msgid "ascend"
+msgstr ""
